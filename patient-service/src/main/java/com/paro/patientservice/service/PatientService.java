@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class PatientService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PatientController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PatientService.class);
 
     //Field Injection - The Ugly
     /*

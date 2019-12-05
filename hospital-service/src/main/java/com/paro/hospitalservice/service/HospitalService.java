@@ -24,7 +24,7 @@ import java.util.List;
 
 @Service
 public class HospitalService {
-    private static final Logger LOGGER= LoggerFactory.getLogger(HospitalController.class);
+    private static final Logger LOGGER= LoggerFactory.getLogger(HospitalService.class);
 
     private HospitalRepository hospitalRepository;
 
