@@ -6,7 +6,7 @@ stage('Build')
 {
 steps{
 echo "Building the Code.........."
-bat "mvn clean"
+bat "mvn -f hospital-service/pom.xml clean"
 }
 }
 stage('Test')
