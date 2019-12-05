@@ -6,21 +6,21 @@ stage('Build')
 {
 steps{
 echo "Building the Code.........."
-bat "mvn clean"
+bat "mvn -f patient-service/pom.xml clean"
 }
 }
 stage('Test')
 {
 steps{
 echo "Testing the Code.........."
-bat "mvn test"
+bat "mvn -f patient-service/pom.xml test"
 }
 }
 stage('Compile')
 {
 steps{
 echo "Compiling the Project.........."
-bat "mvn compile"
+bat "mvn -f patient-service/pom.xml compile"
 }
 }
 stage('Deploy')
