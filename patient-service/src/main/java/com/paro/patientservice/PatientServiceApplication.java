@@ -13,21 +13,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableSwagger2
 public class PatientServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PatientServiceApplication.class, args);
     }
 
-    @Bean
-    public Docket swaggerApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.paro.patientservice.controller"))
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(new ApiInfoBuilder().version("1.0").title("Patient API").description("Documentation Patient API v1.0").build());
 
-    }
 }

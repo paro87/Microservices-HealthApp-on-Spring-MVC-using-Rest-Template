@@ -1,7 +1,6 @@
 package com.paro.departmentservice.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.paro.departmentservice.controller.DepartmentController;
 import com.paro.departmentservice.model.Department;
 import com.paro.departmentservice.model.Patient;
 import com.paro.departmentservice.repository.DepartmentRepository;
@@ -53,9 +52,8 @@ public class DepartmentService {
     }
 
     public Department add(Department department){
-        departmentRepository.save(department);
+        Department departmentSaved=departmentRepository.save(department);
         LOGGER.info("Department added with id={}", department.getId());
-        Department departmentSaved=departmentRepository.findById(department.getId()).orElse(null);
         return departmentSaved;
     }
 
@@ -65,7 +63,7 @@ public class DepartmentService {
         return departmentsFound;
     }
 
-    private String patientClient="http://patient-service";
+    private String patientClient="http://patient-service";          //The host address will be fetched from Eureka
     private static final String RESOURCE_PATH="/department/";
     private String REQUEST_URI=patientClient+RESOURCE_PATH;
 
@@ -75,7 +73,6 @@ public class DepartmentService {
         List<Department> departmentList=departmentRepository.findByHospitalId(hospitalId);
         List<Patient> patientList;
         for (Department department:departmentList) {
-            System.out.println(REQUEST_URI+department.getId());
             ResponseEntity<List<Patient>> responseEntity = restTemplate.
                     exchange(REQUEST_URI+department.getId(), HttpMethod.GET, null, new ParameterizedTypeReference<List<Patient>>() {});
             patientList = responseEntity.getBody();

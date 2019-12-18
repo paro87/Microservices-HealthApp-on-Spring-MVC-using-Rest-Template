@@ -34,14 +34,15 @@ class PatientRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        patient1=new Patient(Long.valueOf(1), "John", "Adams", Long.valueOf(2), Long.valueOf(23));
-        patient2=new Patient(Long.valueOf(2), "Mary", "James", Long.valueOf(2), Long.valueOf(7));
+        patient1=new Patient(1L, "John", "Adams", 2L, 23L);
+        patient2=new Patient(2L, "Mary", "James", 2L, 7L);
     }
 
     @Test
     void findById() {
         patientRepository.save(patient1);
         Patient patientFound=patientRepository.findById(1L).orElse(null);
+        assert patientFound != null;
         assertThat(patientFound.getFirstname()).isEqualTo("John");
     }
 
@@ -58,6 +59,7 @@ class PatientRepositoryTest {
     void save(){
         patientRepository.save(patient1);
         Patient patientAdded= patientRepository.findById(patient1.getId()).orElse(null);
+        assert patientAdded != null;
         assertThat(patientAdded.getSurname()).isEqualTo("Adams");
     }
 

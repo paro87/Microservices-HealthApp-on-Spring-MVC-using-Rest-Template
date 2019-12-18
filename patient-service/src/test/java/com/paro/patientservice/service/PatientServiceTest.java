@@ -33,8 +33,8 @@ class PatientServiceTest {
     void setUp() {
 
         MockitoAnnotations.initMocks(this);
-        patient1=new Patient(Long.valueOf(1), "John", "Adams", Long.valueOf(2), Long.valueOf(23));
-        patient2=new Patient(Long.valueOf(2), "Mary", "James", Long.valueOf(1), Long.valueOf(7));
+        patient1=new Patient(1L, "John", "Adams", 2L, 23L);
+        patient2=new Patient(2L, "Mary", "James", 2L, 23L);
         patientList= new ArrayList<>();
         patientList.add(patient1);
         patientList.add(patient2);

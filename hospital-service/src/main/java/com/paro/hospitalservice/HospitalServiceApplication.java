@@ -14,7 +14,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableSwagger2
 @EnableHystrix
 
 public class HospitalServiceApplication {
@@ -22,15 +21,6 @@ public class HospitalServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(HospitalServiceApplication.class, args);
     }
-    @Bean
-    public Docket swaggerApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.paro.hospitalservice.controller"))
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(new ApiInfoBuilder().version("1.0").title("Hospital API").description("Documentation Hospital API v1.0").build());
 
-    }
 
 }

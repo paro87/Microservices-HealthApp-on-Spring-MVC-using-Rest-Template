@@ -1,6 +1,5 @@
 package com.paro.patientservice.service;
 
-import com.paro.patientservice.controller.PatientController;
 import com.paro.patientservice.model.Patient;
 import com.paro.patientservice.repository.PatientRepository;
 import org.slf4j.Logger;
@@ -54,9 +53,8 @@ public class PatientService {
     }
 
     public Patient add(Patient patient) {
-        patientRepository.save(patient);
+        Patient patientSaved= patientRepository.save(patient);
         LOGGER.info("Patient added with id={}", patient.getId());
-        Patient patientSaved= patientRepository.findById(patient.getId()).orElse(null);
         return patientSaved;
     }
 

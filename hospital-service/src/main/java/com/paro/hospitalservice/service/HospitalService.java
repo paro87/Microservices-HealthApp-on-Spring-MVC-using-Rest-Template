@@ -1,7 +1,6 @@
 package com.paro.hospitalservice.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.paro.hospitalservice.controller.HospitalController;
 import com.paro.hospitalservice.model.Department;
 import com.paro.hospitalservice.model.Hospital;
 import com.paro.hospitalservice.model.Patient;
@@ -15,7 +14,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -55,9 +53,8 @@ public class HospitalService {
     }
 
     public Hospital add( Hospital hospital){
-        hospitalRepository.save(hospital);
+        Hospital hospitalSaved=hospitalRepository.save(hospital);
         LOGGER.info("Hospital added with id={}", hospital.getId());
-        Hospital hospitalSaved=hospitalRepository.findById(hospital.getId()).orElse(null);
         return hospitalSaved;
     }
 

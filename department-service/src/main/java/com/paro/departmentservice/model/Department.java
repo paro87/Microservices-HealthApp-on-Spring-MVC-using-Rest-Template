@@ -27,6 +27,5 @@ public class Department {
     private List<Patient> patientList=new ArrayList<>();
 
 
-    public Department(Long valueOf, String apple, Long valueOf1) {
-    }
+
 }

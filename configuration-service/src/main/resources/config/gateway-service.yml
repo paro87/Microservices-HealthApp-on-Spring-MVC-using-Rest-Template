@@ -28,7 +28,7 @@ spring:
           predicates:
             - Path=/patient/**
           filters:
-            - RewritePath=/patient/(?<path>.*), /$\{path}   #replaces /patient/foo to /foo (during 8060 -> 8092)
+            - RewritePath=/patient/(?<path>.*), /v1/$\{path}   #replaces /patient/foo to /foo (when 8060 -> 8092)
             - name: Hystrix                                 #Filter name
               args:
                 name: hystrixCommand                        #Hystrix Command name
@@ -38,7 +38,7 @@ spring:
           predicates:
             - Path=/department/**
           filters:
-            - RewritePath=/department/(?<path>.*), /$\{path}
+            - RewritePath=/department/(?<path>.*), /v1/$\{path}    #Old: /$\{path}
             - name: Hystrix
               args:
                 name: hystrixCommand
@@ -48,7 +48,7 @@ spring:
           predicates:
             - Path=/hospital/**
           filters:
-            - RewritePath=/hospital/(?<path>.*), /$\{path}
+            - RewritePath=/hospital/(?<path>.*), /v1/$\{path}
             - name: Hystrix
               args:
                 name: hystrixCommand
