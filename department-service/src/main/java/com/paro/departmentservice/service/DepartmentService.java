@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class DepartmentService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentService.class);
-    private DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
 
     @LoadBalanced
     @Bean
@@ -30,7 +30,7 @@ public class DepartmentService {
     }
 
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     @Autowired
     public DepartmentService(DepartmentRepository departmentRepository) {

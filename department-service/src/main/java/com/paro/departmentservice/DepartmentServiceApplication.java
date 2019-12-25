@@ -21,14 +21,5 @@ public class DepartmentServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(DepartmentServiceApplication.class, args);
     }
-    @Bean
-    public Docket swaggerApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.paro.departmentservice.controller"))
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(new ApiInfoBuilder().version("1.0").title("Department API").description("Documentation Department API v1.0").build());
 
-    }
 }

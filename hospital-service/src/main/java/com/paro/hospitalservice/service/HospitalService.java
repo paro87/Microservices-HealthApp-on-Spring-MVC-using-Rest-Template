@@ -24,7 +24,7 @@ import java.util.List;
 public class HospitalService {
     private static final Logger LOGGER= LoggerFactory.getLogger(HospitalService.class);
 
-    private HospitalRepository hospitalRepository;
+    private final HospitalRepository hospitalRepository;
 
     @LoadBalanced
     @Bean
@@ -36,7 +36,7 @@ public class HospitalService {
     RestTemplate restTemplate;
 
     @Autowired
-    public void HospitalService (HospitalRepository hospitalRepository){
+    public HospitalService (HospitalRepository hospitalRepository){
         this.hospitalRepository=hospitalRepository;
 
     }

@@ -9,6 +9,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebFlux;
 
+//Uses Swagger2 3.0.0-SNAPSHOT version! Look at the dependencies and repositories in pom.xml
 @Configuration
 @EnableSwagger2WebFlux
 public class SwaggerConfig {

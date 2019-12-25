@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/v1")     //For Swagger UI: http://localhost:8090/swagger-ui.html
 public class HospitalController {
 
-    private HospitalService hospitalService;
+    private final HospitalService hospitalService;
 
     @Autowired
     public HospitalController(HospitalService hospitalService){

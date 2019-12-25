@@ -100,9 +100,9 @@ class HospitalControllerTest {
     @Test
     void add() throws Exception {
         given(hospitalService.add(any(Hospital.class))).willReturn(hospital1);
-        String patientInJSON="{\"id\": 1,\"name\": \"Johns Hopkins\",\"address\": \"US\", \"departmentList\":null,\"patientList\":null}";
+        String hospitalInJSON="{\"id\": 1,\"name\": \"Johns Hopkins\",\"address\": \"US\", \"departmentList\":null,\"patientList\":null}";
         mockMvc.perform(post("/")
-                .content(patientInJSON)
+                .content(hospitalInJSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

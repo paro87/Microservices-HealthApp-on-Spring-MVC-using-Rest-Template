@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1")     //For Swagger UI: http://localhost:8091/swagger-ui.html
 public class DepartmentController {
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     @Autowired
     public DepartmentController(DepartmentService departmentService){
