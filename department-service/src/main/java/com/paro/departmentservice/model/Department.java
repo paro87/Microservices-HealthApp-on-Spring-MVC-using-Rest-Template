@@ -26,6 +26,4 @@ public class Department {
     @Transient
     private List<Patient> patientList=new ArrayList<>();
 
-
-
 }
