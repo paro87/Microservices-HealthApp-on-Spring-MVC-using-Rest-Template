@@ -5,9 +5,13 @@ import com.paro.patientservice.repository.PatientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PatientService {
@@ -41,22 +45,73 @@ public class PatientService {
         this.patientRepository=patientRepository;
     }*/
 
+    public Patient getById(Long patientId) {
+        Optional<Patient> patientFound=patientRepository.findById(patientId);
+        if (patientFound.isPresent()) {
+            LOGGER.info("Patient found with id={}", patientId);
+            return patientFound.get();
+        }
+        return null;
+
+    }
+    // 2.way ResponseEntity- Returning HttpStatus.NOT_FOUND in case if the patient with required id does not exist
+/*
+    public ResponseEntity<Patient> getById(Long patientId) {
+        Optional<Patient> patientFound=patientRepository.findById(patientId);
+        if (patientFound.isPresent()) {
+            LOGGER.info("Patient found with id={}", patientId);
+            return new ResponseEntity<>(patientFound.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+    }
+*/
+
     public List<Patient> getAll() {
         List<Patient> patientsFound=patientRepository.findAll();
         LOGGER.info("Patients found");
         return patientsFound;
     }
 
-    public Patient getById(Long patientId) {
-        Patient patientFound=patientRepository.findById(patientId).orElse(null);
-        LOGGER.info("Patient found with id={}", patientId);
-        return patientFound;
-    }
-
     public Patient add(Patient patient) {
         Patient patientSaved= patientRepository.save(patient);
         LOGGER.info("Patient added with id={}", patient.getId());
         return patientSaved;
+    }
+
+    public Patient put(Patient patient) {
+        Patient patientSaved= patientRepository.save(patient);
+        LOGGER.info("Patient put with id={}", patient.getId());
+        return patientSaved;
+    }
+
+    public Patient patch(Long patientId, Patient patientToPatch) {
+        Patient patientFound=patientRepository.findById(patientId).get();
+        if (patientToPatch.getId()!=null) {
+            patientFound.setId(patientToPatch.getId());
+        }
+        if (patientToPatch.getFirstname()!=null) {
+            patientFound.setFirstname(patientToPatch.getFirstname());
+        }
+        if (patientToPatch.getSurname()!=null) {
+            patientFound.setSurname(patientToPatch.getSurname());
+        }
+        if (patientToPatch.getDepartmentId()!=null) {
+            patientFound.setDepartmentId(patientToPatch.getDepartmentId());
+        }
+        if (patientToPatch.getHospitalId()!=null) {
+            patientFound.setHospitalId(patientToPatch.getHospitalId());
+        }
+        Patient patientPatched= patientRepository.save(patientFound);
+        LOGGER.info("Patient patched with id={}", patientFound.getId());
+        return patientPatched;
+    }
+
+    public void deleteById(Long patientId) {
+        try {
+            patientRepository.deleteById(patientId);
+            LOGGER.info("Patient deleted with id={}", patientId);
+        } catch (EmptyResultDataAccessException e){}
     }
 
     public List<Patient> getByDepartmentId(Long departmentId) {
@@ -70,4 +125,6 @@ public class PatientService {
         LOGGER.info("Patients found in hospital with id={}", hospitalId);
         return patientsFound;
     }
+
+
 }
