@@ -45,11 +45,7 @@ public class HospitalService {
     }
 
     public List<Hospital> getAll(){
-        //In case if we would want 20 patients form 1st page
-        /*
-        PageRequest pageRequest=PageRequest.of(0, 20);
-        List<Hospital> hospitalList=hospitalRepository.findAll(pageRequest).getContent();
-        */
+
         List<Hospital> hospitalList=hospitalRepository.findAll();
         LOGGER.info("Hospitals found");
         return hospitalList;

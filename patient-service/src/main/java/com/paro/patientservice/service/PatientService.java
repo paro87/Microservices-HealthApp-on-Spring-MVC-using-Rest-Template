@@ -68,6 +68,11 @@ public class PatientService {
 */
 
     public List<Patient> getAll() {
+        //In case if we would want 20 patients from 1st page
+        /*
+        PageRequest pageRequest=PageRequest.of(0, 20);
+        List<Patient> patientsFound=patientRepository.findAll(pageRequest).getContent();
+        */
         List<Patient> patientsFound=patientRepository.findAll();
         LOGGER.info("Patients found");
         return patientsFound;
