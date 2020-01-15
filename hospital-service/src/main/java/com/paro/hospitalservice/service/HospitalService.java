@@ -1,6 +1,7 @@
 package com.paro.hospitalservice.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.paro.hospitalservice.model.Department;
 import com.paro.hospitalservice.model.Hospital;
 import com.paro.hospitalservice.model.Patient;
@@ -29,19 +30,13 @@ public class HospitalService {
 
     private final HospitalRepository hospitalRepository;
 
-    @LoadBalanced
-    @Bean
-    RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
+    private final RestTemplate restTemplate;
 
     @Autowired
-    RestTemplate restTemplate;
-
-    @Autowired
-    public HospitalService (HospitalRepository hospitalRepository){
+    public HospitalService(HospitalRepository hospitalRepository, @LoadBalanced RestTemplate restTemplate){
         this.hospitalRepository=hospitalRepository;
 
+        this.restTemplate = restTemplate;
     }
 
     public List<Hospital> getAll(){
@@ -149,6 +144,15 @@ public class HospitalService {
         LOGGER.info("Patients found with hospital id={}", hospitalId);
         return hospital;
     }
+
+    @HystrixCommand(fallbackMethod="getDefaultIngredients",
+            commandProperties={ @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="500"),
+                                @HystrixProperty(name="execution.timeout.enabled", value="false"),
+                                @HystrixProperty(name="circuitBreaker.requestVolumeThreshold", value="30"),
+                                @HystrixProperty(name="circuitBreaker.errorThresholdPercentage", value="25"),
+                                @HystrixProperty(name="metrics.rollingStats.timeInMilliseconds", value="20000"),
+                                @HystrixProperty(name="circuitBreaker.sleepWindowInMilliseconds", value="60000")})
+
 
     @SuppressWarnings("unused")
     private Hospital getHospitalWithDepartments_Fallback(Long hospitalId){

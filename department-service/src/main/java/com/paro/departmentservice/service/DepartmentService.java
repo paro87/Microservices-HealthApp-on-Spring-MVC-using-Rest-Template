@@ -25,19 +25,13 @@ public class DepartmentService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentService.class);
     private final DepartmentRepository departmentRepository;
 
-    @LoadBalanced
-    @Bean
-    RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
+    private final RestTemplate restTemplate;
 
     @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
-    public DepartmentService(DepartmentRepository departmentRepository) {
+    public DepartmentService(DepartmentRepository departmentRepository, @LoadBalanced RestTemplate restTemplate) {
         this.departmentRepository=departmentRepository;
 
+        this.restTemplate = restTemplate;
     }
 
     public List<Department> getAll() {

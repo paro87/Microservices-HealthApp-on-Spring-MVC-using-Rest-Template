@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: actuatoradmin-service
+  cloud:
+    config:
+      uri: http://localhost:8888
